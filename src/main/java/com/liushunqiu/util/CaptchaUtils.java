@@ -1,5 +1,7 @@
 package com.liushunqiu.util;
 
+import com.liushunqiu.entity.ValidateCode;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,6 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Random;
 
 /**
@@ -21,16 +24,39 @@ public class CaptchaUtils {
 
     private String randString = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";// 随机产生的字符串
 
-    private int width = 80;// 图片宽
-    private int height = 26;// 图片高
-    private int lineSize = 40;// 干扰线数量
-    private int stringNum = 4;// 随机产生字符数量
+    private Font font;
+
+    /**
+     * 图片宽
+     */
+    private int width = 80;
+    /**
+     * 图片高
+     */
+    private int height = 26;
+    /**
+     * 干扰线数量
+     */
+    private int lineSize = 40;
+    /**
+     * 随机产生字符数量
+     */
+    private int defaultNum = 4;
+
+    public CaptchaUtils(int width, int height, int defaultNum) {
+        this.width = width;
+        this.height = height;
+        this.defaultNum = defaultNum;
+    }
 
     /*
      * 获得字体
      */
     private Font getFont() {
-        return new Font("Fixedsys", Font.CENTER_BASELINE, 18);
+        if (font == null){
+            font = new Font("Fixedsys", Font.CENTER_BASELINE, 18);
+        }
+        return font;
     }
 
     /*
@@ -56,8 +82,8 @@ public class CaptchaUtils {
         g.setFont(getFont());
         g.setColor(new Color(random.nextInt(101), random.nextInt(111), random
                 .nextInt(121)));
-        String rand = String.valueOf(getRandomString(random.nextInt(randString
-                .length())));
+        String rand = getRandomString(random.nextInt(randString
+                .length()));
         randomString += rand;
         g.translate(random.nextInt(3), random.nextInt(3));
         g.drawString(rand, 13 * i, 16);
@@ -86,7 +112,7 @@ public class CaptchaUtils {
     /**
      * 生成随机图片
      */
-    public String getRandcode() {
+    public ValidateCode getRandcode() {
         // BufferedImage类是具有缓冲区的Image类,Image类是用于描述图像信息的类
         BufferedImage image = new BufferedImage(width, height,BufferedImage.TYPE_INT_BGR);
         Graphics g = image.getGraphics();// 产生Image对象的Graphics对象,改对象可以在图像上进行各种绘制操作
@@ -99,12 +125,13 @@ public class CaptchaUtils {
         }
         // 绘制随机字符
         String randomString = "";
-        for (int i = 1; i <= stringNum; i++) {
+        for (int i = 1; i <= defaultNum; i++) {
             randomString = drowString(g, randomString, i);
         }
         logger.info("生成的验证码={}",randomString);
         g.dispose();
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        String encryptStr = DigestUtils.md5Hex(randomString + System.currentTimeMillis());
         try {
             ImageIO.write(image, "png", outputStream);
         } catch (Exception e) {
@@ -116,6 +143,8 @@ public class CaptchaUtils {
                 e.printStackTrace();
             }
         }
-        return randomString;
+        return ValidateCode.builder()
+                .setEncryptKey(encryptStr)
+                .setCode(Base64.getEncoder().encodeToString(outputStream.toByteArray()));
     }
 }

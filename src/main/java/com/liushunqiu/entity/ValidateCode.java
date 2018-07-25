@@ -3,7 +3,7 @@ package com.liushunqiu.entity;
 import java.io.Serializable;
 
 public class ValidateCode implements Serializable {
-    private String encryptStr;
+    private String encryptKey;
 
     private String code;
 
@@ -11,12 +11,12 @@ public class ValidateCode implements Serializable {
         return new ValidateCode();
     }
 
-    public String getEncryptStr() {
-        return encryptStr;
+    public String getEncryptKey() {
+        return encryptKey;
     }
 
-    public ValidateCode setEncryptStr(String encryptStr) {
-        this.encryptStr = encryptStr;
+    public ValidateCode setEncryptKey(String encryptKey) {
+        this.encryptKey = encryptKey;
         return this;
     }
 
@@ -27,5 +27,13 @@ public class ValidateCode implements Serializable {
     public ValidateCode setCode(String code) {
         this.code = code;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "ValidateCode{" +
+                "encryptKey='" + encryptKey + '\'' +
+                ", code='" + code + '\'' +
+                '}';
     }
 }

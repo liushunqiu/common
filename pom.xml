@@ -13,6 +13,7 @@
         <org.apache.maven.plugins>3.5.1</org.apache.maven.plugins>
         <org.apache.commons.commons-lang3>3.7</org.apache.commons.commons-lang3>
         <commons-codec.commons-codec>1.11</commons-codec.commons-codec>
+        <redis.clients.jedis>2.9.0</redis.clients.jedis>
     </properties>
     <dependencies>
         <dependency>
@@ -31,7 +32,33 @@
             <artifactId>commons-codec</artifactId>
             <version>${commons-codec.commons-codec}</version>
         </dependency>
+        <!--引入spring boot 自定义starter-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${redis.clients.jedis}</version>
+        </dependency>
+
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>1.5.14.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
