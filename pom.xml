@@ -6,14 +6,20 @@
 
     <groupId>com.liushunqiu</groupId>
     <artifactId>common</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>captcha-spring-boot-starter</module>
+        <module>redisson-spring-boot-starter</module>
+        <module>test</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
         <org.apache.maven.plugins>3.5.1</org.apache.maven.plugins>
         <org.apache.commons.commons-lang3>3.7</org.apache.commons.commons-lang3>
         <commons-codec.commons-codec>1.11</commons-codec.commons-codec>
-        <redis.clients.jedis>2.9.0</redis.clients.jedis>
+        <com.alibaba.fastjson>1.2.47</com.alibaba.fastjson>
     </properties>
     <dependencies>
         <dependency>
@@ -39,9 +45,9 @@
         </dependency>
 
         <dependency>
-            <groupId>redis.clients</groupId>
-            <artifactId>jedis</artifactId>
-            <version>${redis.clients.jedis}</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${com.alibaba.fastjson}</version>
         </dependency>
 
     </dependencies>

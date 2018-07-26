@@ -1,4 +1,4 @@
-package com.liushunqiu.entity;
+package com.liushunqiu.captcha.support;
 
 import java.io.Serializable;
 

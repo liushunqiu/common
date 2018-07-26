@@ -1,4 +1,4 @@
-package com.liushunqiu.properties;
+package com.liushunqiu.captcha.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -9,6 +9,16 @@ public class CaptchaProperties {
     private int width;
 
     private int height;
+
+    private boolean hasLineSize;
+
+    public boolean isHasLineSize() {
+        return hasLineSize;
+    }
+
+    public void setHasLineSize(boolean hasLineSize) {
+        this.hasLineSize = hasLineSize;
+    }
 
     public int getNum() {
         return num;

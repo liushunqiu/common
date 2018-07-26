@@ -1,20 +1,23 @@
-package com.liushunqiu.autoconfigure;
+package com.liushunqiu.captcha.autoconfigure;
 
-import com.liushunqiu.properties.CaptchaProperties;
-import com.liushunqiu.util.CaptchaUtils;
+import com.liushunqiu.captcha.CaptchaUtils;
+import com.liushunqiu.captcha.condition.CheckRedisCondition;
+import com.liushunqiu.captcha.properties.CaptchaProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import redis.clients.jedis.Jedis;
 
 @Configuration
-@ConditionalOnClass(value={CaptchaUtils.class ,Jedis.class})
+@Conditional(CheckRedisCondition.class)
+@ConditionalOnClass(value={CaptchaUtils.class})
 @EnableConfigurationProperties(CaptchaProperties.class)
 public class CaptchaAutoConfigure {
+
     @Autowired
     private CaptchaProperties properties;
 
@@ -22,6 +25,6 @@ public class CaptchaAutoConfigure {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "common.captcha",value = "enabled",havingValue = "true")
     CaptchaUtils captchaUtils (){
-        return  new CaptchaUtils(properties.getNum(),properties.getWidth(),properties.getHeight());
+        return  new CaptchaUtils(properties.getWidth(),properties.getHeight(),properties.getNum(),properties.isHasLineSize());
     }
 }
