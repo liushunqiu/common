@@ -4,13 +4,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties("common.captcha")
 public class CaptchaProperties {
-    private int num;
+    private int num = 4;
 
-    private int width;
+    private int width = 80;
 
-    private int height;
+    private int height = 26;
 
-    private boolean hasLineSize;
+    private int lineSize = 40;
+
+    private boolean hasLineSize = true;
 
     public boolean isHasLineSize() {
         return hasLineSize;
@@ -42,5 +44,24 @@ public class CaptchaProperties {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getLineSize() {
+        return lineSize;
+    }
+
+    public void setLineSize(int lineSize) {
+        this.lineSize = lineSize;
+    }
+
+    @Override
+    public String toString() {
+        return "CaptchaProperties{" +
+                "num=" + num +
+                ", width=" + width +
+                ", height=" + height +
+                ", lineSize=" + lineSize +
+                ", hasLineSize=" + hasLineSize +
+                '}';
     }
 }

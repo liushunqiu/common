@@ -1,5 +1,6 @@
 package com.liushunqiu.captcha;
 
+import com.liushunqiu.captcha.properties.CaptchaProperties;
 import com.liushunqiu.captcha.support.RedisConstant;
 import com.liushunqiu.captcha.support.ValidateCode;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -45,39 +46,11 @@ public class CaptchaUtils {
 
     private Font font;
 
-    /**
-     * 图片宽
-     */
-    private int width = 80;
-    /**
-     * 图片高
-     */
-    private int height = 26;
-    /**
-     * 干扰线数量
-     */
-    private int lineSize = 40;
-    /**
-     * 是否需要画干扰线
-     */
-    private boolean hasLineSize = true;
-    /**
-     * 随机产生字符数量
-     */
-    private int num = 4;
+    private CaptchaProperties properties;
 
-    public CaptchaUtils(int width, int height, int num,boolean hasLineSize) {
-        if (width != 0){
-            this.width = width;
-        }
-        if (height != 0){
-            this.height = height;
-        }
-        if (num != 0){
-            this.num = num;
-        }
-        this.hasLineSize = hasLineSize;
-        log.info("自动注册CaptchaUtils,width={},height={},num={},hasLineSize={}",this.width,this.height,this.num,this.hasLineSize);
+    public CaptchaUtils(CaptchaProperties captchaProperties) {
+        this.properties = captchaProperties;
+        log.info("自动注册CaptchaUtils,captchaProperties={}",captchaProperties);
     }
 
     /*
@@ -125,8 +98,8 @@ public class CaptchaUtils {
      * 绘制干扰线
      */
     private void drowLine(Graphics g) {
-        int x = random.nextInt(width);
-        int y = random.nextInt(height);
+        int x = random.nextInt(properties.getWidth());
+        int y = random.nextInt(properties.getHeight());
         int xl = random.nextInt(13);
         int yl = random.nextInt(15);
         g.drawLine(x, y, x + xl, y + yl);
@@ -145,20 +118,20 @@ public class CaptchaUtils {
      */
     public ValidateCode getRandcode() throws Exception{
         // BufferedImage类是具有缓冲区的Image类,Image类是用于描述图像信息的类
-        BufferedImage image = new BufferedImage(width, height,BufferedImage.TYPE_INT_BGR);
+        BufferedImage image = new BufferedImage(properties.getWidth(), properties.getHeight(),BufferedImage.TYPE_INT_BGR);
         Graphics g = image.getGraphics();// 产生Image对象的Graphics对象,改对象可以在图像上进行各种绘制操作
-        g.fillRect(0, 0, width, height);
+        g.fillRect(0, 0, properties.getWidth(), properties.getHeight());
         g.setFont(new Font("Times New Roman", Font.ROMAN_BASELINE, 18));
         g.setColor(getRandColor(110, 133));
         // 绘制干扰线
-        if (hasLineSize){
-            for (int i = 0; i <= lineSize; i++) {
+        if (properties.isHasLineSize()){
+            for (int i = 0; i <= properties.getLineSize(); i++) {
                 drowLine(g);
             }
         }
         // 绘制随机字符
         String randomString = "";
-        for (int i = 1; i <= num; i++) {
+        for (int i = 1; i <= properties.getNum(); i++) {
             randomString = drowString(g, randomString, i);
         }
         logger.info("生成的验证码={}",randomString);

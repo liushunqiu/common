@@ -14,9 +14,9 @@ public class CheckRedisCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata annotatedTypeMetadata) {
         //如果没有加入redis配置的就返回false
-        String property = context.getEnvironment().getProperty("spring.redisson.host");
+        String property = context.getEnvironment().getProperty("spring.redis.host");
         if (StringUtils.isEmpty(property)){
-            logger.error("图形验证需要依赖redis!");
+            logger.error("图形验证需要依赖spring-boot-starter-data-redis!");
             return false ;
         }else {
             return true;

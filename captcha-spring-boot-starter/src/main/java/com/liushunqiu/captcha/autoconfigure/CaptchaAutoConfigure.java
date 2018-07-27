@@ -25,6 +25,6 @@ public class CaptchaAutoConfigure {
     @ConditionalOnMissingBean
     @ConditionalOnProperty(prefix = "common.captcha",value = "enabled",havingValue = "true")
     CaptchaUtils captchaUtils (){
-        return  new CaptchaUtils(properties.getWidth(),properties.getHeight(),properties.getNum(),properties.isHasLineSize());
+        return  new CaptchaUtils(properties);
     }
 }

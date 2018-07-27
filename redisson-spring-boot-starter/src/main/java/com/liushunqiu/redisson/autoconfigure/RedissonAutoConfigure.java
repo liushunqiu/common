@@ -1,6 +1,8 @@
 package com.liushunqiu.redisson.autoconfigure;
 
 import com.liushunqiu.redisson.RedissionUtils;
+import com.liushunqiu.redisson.properties.RedissionProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -13,6 +15,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties()
 public class RedissonAutoConfigure {
 
+    @Autowired
+    private RedissionProperties properties;
 
     @Bean
     @ConditionalOnMissingBean
