@@ -23,7 +23,7 @@ public class CaptchaAutoConfigure {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(prefix = "common.captcha",value = "enabled",havingValue = "true")
+    @ConditionalOnProperty(prefix = "spring.captcha",value = "enabled",havingValue = "true")
     CaptchaUtils captchaUtils (){
         return  new CaptchaUtils(properties);
     }

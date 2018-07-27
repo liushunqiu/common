@@ -2,7 +2,7 @@ package com.liushunqiu.captcha.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("common.captcha")
+@ConfigurationProperties("spring.captcha")
 public class CaptchaProperties {
     private int num = 4;
 

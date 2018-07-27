@@ -22,7 +22,7 @@ import java.util.Random;
  *
  *
  * application.yml配置
- * common:
+ * spring:
  *     captcha:
  *         enabled: true
  *         num: 5

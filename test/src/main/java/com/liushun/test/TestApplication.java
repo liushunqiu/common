@@ -2,6 +2,8 @@ package com.liushun.test;
 
 import com.liushunqiu.captcha.CaptchaUtils;
 import com.liushunqiu.captcha.support.ValidateCode;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestApplication {
     @Autowired(required = false)
     private CaptchaUtils captchaUtils;
+    @Autowired(required = false)
+    RedissonClient redissonClient;
 
     public static void main(String[] args) {
         SpringApplication.run(TestApplication.class,args);
@@ -33,4 +37,11 @@ public class TestApplication {
         System.out.println(captchaUtils.checkValidateCode(encryptKey,code,false));
     }
 
+    @RequestMapping(value ="/test3")
+    public void test3(){
+        try {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

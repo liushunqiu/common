@@ -7,7 +7,10 @@ spring:
         timeout: 2000
         password: 87LD_kd1
         database: 23
-common:
     captcha:
         enabled: true
         num: 5
+    redisson:
+        enabled: true
+        configFile:
+            json: classpath:redisson.json
