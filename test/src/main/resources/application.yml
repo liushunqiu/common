@@ -2,11 +2,10 @@ server:
     port: 8080
 spring:
     redis:
-        host: yw-os-0001
-        port: 34155
+        host: 127.0.0.1
+        port: 6379
         timeout: 2000
-        password: 87LD_kd1
-        database: 23
+        database: 15
     captcha:
         enabled: true
         num: 5
