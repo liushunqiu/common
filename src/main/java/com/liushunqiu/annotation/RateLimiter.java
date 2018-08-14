@@ -1,4 +1,4 @@
-package com.liushunqiu.redisson.annotation;
+package com.liushunqiu.annotation;
 
 import java.lang.annotation.*;
 
@@ -12,11 +12,11 @@ public @interface RateLimiter {
 
     TimeType timeType() default TimeType.SECOND;
 
-    long limit() default 100L;
+    int limit() default 100;
 
-    long max() default 60L;
+    int max() default 60;
 
-    enum TimeType{
+    enum TimeType {
         //秒
         SECOND,
         //分钟
