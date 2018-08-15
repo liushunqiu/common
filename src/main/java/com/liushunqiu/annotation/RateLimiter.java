@@ -3,18 +3,26 @@ package com.liushunqiu.annotation;
 import java.lang.annotation.*;
 
 /**
- * 基于url的限流,默认60秒内每个请求只能有100次
+ * 默认60秒内每个请求只能有100次
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 @Documented
 public @interface RateLimiter {
+    Type type() default Type.URL;
 
     TimeType timeType() default TimeType.SECOND;
 
     int limit() default 100;
 
-    int max() default 60;
+    int expired() default 60;
+
+    enum Type {
+        //限制IP
+        IP,
+        //限制url
+        URL
+    }
 
     enum TimeType {
         //秒

@@ -4,5 +4,7 @@ public interface RedisConstant {
     /**
      * 限流url
      */
-    String LIMIT_PATH = "limit:%s";
+    String LIMIT_URL = "limit:url:%s";
+
+    String LIMIT_IP = "limit:ip:%s";
 }
